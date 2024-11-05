@@ -4,6 +4,11 @@ on:
     branches:
       - main
   workflow_dispatch: # Allows manual triggering of the workflow
+    inputs:
+        page_title:
+          description: 'New Page Title'
+          required: true
+          default: 'My Awesome Page'
 
 permissions:
   contents: write
