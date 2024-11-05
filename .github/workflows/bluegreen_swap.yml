@@ -4,11 +4,6 @@ on:
     branches:
       - main
   workflow_dispatch: # Allows manual triggering of the workflow
-    inputs:
-        page_title:
-          description: 'New Page Title'
-          required: true
-          default: 'My Awesome Page'
 
 permissions:
   contents: write
@@ -31,16 +26,16 @@ jobs:
       - name: Swap contents of index.html and index_v2.html
         run: |
           # Check if the files exist
-          if [ ! -f index.html ] || [ ! -f index_v2.html ]; then
+          if [ ! -f docs/index.html ] || [ ! -f docs/index_v2.html ]; then
             echo "One or both of the files do not exist!"
             exit 1
           fi
 
           # Swap the contents using a temporary file
           temp_file=$(mktemp)
-          mv index.html $temp_file
-          mv index_v2.html index.html
-          mv $temp_file index_v2.html
+          mv docs/index.html $temp_file
+          mv docs/index_v2.html docs/index.html
+          mv $temp_file docs/index_v2.html
 
           echo "Swapped contents of index.html and index_v2.html."
 
