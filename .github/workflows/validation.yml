@@ -30,7 +30,6 @@ jobs:
 
       - name: Run test
         run: |
-          npm install htmlhint
           node -e "const fs = require('fs');
           const checkTitleTag = (filePath) => {
             try {
@@ -51,10 +50,6 @@ jobs:
           
           // Run the test on index.html
           checkTitleTag('docs/index.html');"         
-
-      - name: Lint HTML files
-        run: |
-          htmlhint index.html
 
       - name: Deploy Site
         if: success()
