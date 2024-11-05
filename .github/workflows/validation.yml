@@ -28,6 +28,7 @@ jobs:
           npm install fs
           node -e "
           const fs = require('fs');
+          console.log("AAAAAAAAAAAAAAAA");
           const checkTitleTag = (filePath) => {
             try {
               console.log(0);
