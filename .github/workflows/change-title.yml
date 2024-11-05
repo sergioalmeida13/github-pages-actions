@@ -34,5 +34,5 @@ jobs:
           git config --global user.email "sergioalmeida26@gmail.com"
           git config --global user.name "Sérgio Almeida"
           git add -A
-          git commit -m "Update README.md"
+          git commit -m "Change title"
           git push
