@@ -1,0 +1,53 @@
+name: Swap files
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering of the workflow
+    inputs:
+        page_title:
+          description: 'New Page Title'
+          required: true
+          default: 'My Awesome Page'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  swap-files:
+    runs-on: ubuntu-latest
+   
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Swap contents of index.html and index_v2.html
+        run: |
+          # Check if the files exist
+          if [ ! -f index.html ] || [ ! -f index_v2.html ]; then
+            echo "One or both of the files do not exist!"
+            exit 1
+          fi
+
+          # Swap the contents using a temporary file
+          temp_file=$(mktemp)
+          mv index.html $temp_file
+          mv index_v2.html index.html
+          mv $temp_file index_v2.html
+
+          echo "Swapped contents of index.html and index_v2.html."
+
+      - name: Commit code
+        run: |
+          git config --global user.email "sergioalmeida26@gmail.com"
+          git config --global user.name "Sérgio Almeida"
+          git add docs/index.html docs/index_v2.html
+          git commit -m "Change title"
+          git push
