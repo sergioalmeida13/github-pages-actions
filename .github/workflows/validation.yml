@@ -1,4 +1,4 @@
-name: Change page title
+name: Test and lint
 on:
   push:
     branches:
