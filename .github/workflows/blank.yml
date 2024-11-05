@@ -1,0 +1,62 @@
+name: Change page title
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering of the workflow
+    inputs:
+        page_title:
+          description: 'New Page Title'
+          required: true
+          default: 'My Awesome Page'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  generate-readme:
+    runs-on: ubuntu-latest
+   
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Run test
+        run: |
+          npm install -g htmlhint
+          node -e "const fs = require('fs');
+          const checkTitleTag = (filePath) => {
+            try {
+              const htmlContent = fs.readFileSync(filePath, 'utf8');
+              const titleTagExists = /<title>.*<\/title>/i.test(htmlContent);
+          
+              if (titleTagExists) {
+                console.log("✅ <title> tag found in " + filePath);
+              } else {
+                console.error("❌ <title> tag NOT found in " + filePath);
+                process.exit(1); // Exit with non-zero code to indicate a failed test
+              }
+            } catch (error) {
+              console.error("Error reading file:", error.message);
+              process.exit(1);
+            }
+          };
+          
+          // Run the test on index.html
+          checkTitleTag('docs/index.html');"         
+
+      - name: Lint HTML files
+        run: |
+          htmlhint index.html
+
+      - name: Deploy Site
+        if: success()
+        run: |
+          echo "Deploying site..."        
