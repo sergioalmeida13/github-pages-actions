@@ -13,8 +13,8 @@ permissions:
 
 jobs:
   generate-readme:
-  	runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest
+   
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Run node code
+      - name: Run code js
         run: |
           node -e "
           const fs = require('fs');
@@ -44,3 +44,12 @@ jobs:
           // Write to README.md
           fs.writeFileSync('README.md', readmeContent);
           "
+
+      - name: Commit code
+        run: |
+          git add -A
+          git commit - "Update README.md"
+          git push
+
+  
+     
