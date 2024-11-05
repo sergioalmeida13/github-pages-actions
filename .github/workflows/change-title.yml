@@ -32,7 +32,7 @@ jobs:
         run: |
           NEW_TITLE="${{ github.event.inputs.page_title }}"
           # Assuming the HTML file is located in 'index.html', modify as needed
-          sed -i "s|<title>.*</title>|<title>${NEW_TITLE}</title>|" index.html          
+          sed -i "s|<title>.*</title>|<title>${NEW_TITLE}</title>|" docs/index.html          
 
       - name: Commit code
         run: |
