@@ -30,6 +30,7 @@ jobs:
 
       - name: Run test
         run: |
+          npm install fs
           node -e "const fs = require('fs');
           const checkTitleTag = (filePath) => {
             try {
