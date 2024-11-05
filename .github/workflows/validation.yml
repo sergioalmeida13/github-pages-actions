@@ -45,7 +45,7 @@ jobs:
           };
           
           // Run the test on index.html
-          checkTitleTag('docs/index.html');"         
+          checkTitleTag('../docs/index.html');"         
 
       - name: Deploy Site
         if: success()
