@@ -30,7 +30,7 @@ jobs:
 
       - name: Run test
         run: |
-          npm install -g htmlhint
+          npm install htmlhint
           node -e "const fs = require('fs');
           const checkTitleTag = (filePath) => {
             try {
